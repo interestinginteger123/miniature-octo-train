@@ -1,0 +1,19 @@
+# templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "user.fullname" . }}
+  labels:
+    app: {{ include "user.name" . }}
+    chart: {{ include "user.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  type: ClusterIP
+  ports:
+    - port: 8000
+      targetPort: 8000
+      protocol: TCP
+  selector:
+    app: {{ include "user.name" . }}
+    release: {{ .Release.Name }}

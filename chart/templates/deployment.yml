@@ -1,0 +1,31 @@
+# templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "user.fullname" . }}
+  labels:
+    app: {{ include "user.name" . }}
+    chart: {{ include "user.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ include "user.name" . }}
+      release: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ include "user.name" . }}
+        release: {{ .Release.Name }}
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.pythonImage }}"
+          command: ["poetry", "run", "python", "./app/main.py"]
+          env:
+            - name: PYTHONPATH
+              value: /app:{{ env "PYTHONPATH" | quote }}
+          ports:
+            - containerPort: 8000

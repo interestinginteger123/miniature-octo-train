@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "main"
+version = "0.1.0"
+description = ""
+authors = ["shaun wildman <wildman.shaun@gmail.com>"]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+sqlalchemy = "^2.0.23"
+pydantic = "^2.5.2"
+fastapi = "^0.104.1"
+uvicorn = "^0.24.0.post1"
+
+[tool.poetry.dev-dependencies]
+pulumi = "^3.94.2"
+pulumi-aws = "^6.10.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
